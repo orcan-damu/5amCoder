@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { Home, Info, Briefcase, BookOpen, Image, Menu, X, Code2, UserPlus } from "lucide-react";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "./theme-toggle";
 
 const navItems = [
   { name: "Home", icon: Home, path: "/" },
@@ -92,20 +93,26 @@ export function Navbar() {
                   Sign Up
                 </Button>
               </Link>
+              <div className="ml-2">
+                <ThemeToggle />
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              className="md:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </motion.button>
+            <div className="md:hidden flex items-center gap-2">
+              <ThemeToggle />
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className="p-2"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </motion.button>
+            </div>
           </div>
         </div>
       </motion.nav>

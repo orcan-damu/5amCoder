@@ -2,10 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Navbar } from "@/components/navbar";
-import { Code2, Sunrise, Users, Award, PlayCircle, Sparkles, Brain, Rocket, Bot, Code } from "lucide-react";
+import { 
+  Code2, Sunrise, Users, CheckCircle2, Clock, Target, 
+  Brain, Code, Coffee, ArrowRight, Terminal, Book, 
+  Lightbulb, Star, RocketIcon, HelpCircle
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Lottie from 'lottie-react';
+import codingAnimation from '@/public/animations/coding-animation.json';
+import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -31,221 +40,340 @@ export default function Home() {
       ref={containerRef}
       className="min-h-screen relative overflow-hidden bg-background"
       style={{
-        backgroundImage: `
-          radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, 
-            hsl(var(--primary) / 0.15), 
-            transparent 40%),
-          radial-gradient(800px at ${mousePosition.x * 0.8}px ${mousePosition.y * 1.2}px, 
-            hsl(200 100% 50% / 0.1), 
-            transparent 60%),
-          radial-gradient(700px at ${mousePosition.x * 1.2}px ${mousePosition.y * 0.8}px, 
-            hsl(160 100% 50% / 0.1), 
-            transparent 50%)
-        `
+        backgroundImage: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.15), transparent 40%)`
       }}
     >
       <Navbar />
-      <ThemeToggle />
       
-      <div className="max-w-6xl mx-auto px-6 py-24 space-y-32">
-        {/* Hero Section */}
-        <section className="text-center space-y-8 animate-fade-up">
-          <h1 className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-400 leading-tight">
-            Join the 5AM Coder Movement!
-          </h1>
-          <p className="text-2xl text-muted-foreground max-w-2xl mx-auto">
-            Because coding deserves your clarity, commitment, and community.
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-full transition-all duration-300 hover:scale-105"
-          >
-            Join the Movement Now →
-          </Button>
+      <div className="max-w-7xl mx-auto px-6 py-16 space-y-24">
+        {/* 1. Hero Section - Split Screen Layout */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+          <div className="space-y-8">
+            <h1 className="text-7xl font-bold">
+              <span className="text-primary">Join the 5AM Coder</span> Movement!
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Coding deserves your clarity, commitment, and community.
+            </p>
+            <Button size="lg" className="text-lg px-8">
+              Start Your Coding Journey Today <ArrowRight className="ml-2" />
+            </Button>
+          </div>
+          <div className="relative h-[500px]">
+          <Lottie 
+              animationData={require('@/public/animations/coffee.json')}
+              className="w-full h-full"
+            />
+            {/* Floating code snippets animation overlay */}
+            
+          </div>
         </section>
 
-        {/* What is 5AM Coder Section */}
-        <section className="space-y-12">
-          <h2 className="text-4xl font-bold text-center mb-16">What is a 5AM Coder?</h2>
-          <div className="grid md:grid-cols-2 gap-12 stagger-animation">
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300">
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                <Brain className="text-primary" />
-                The Problem
-              </h3>
-              <p className="text-muted-foreground">
+        {/* 2. Introduction Section - Two Column Layout */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <h2 className="text-3xl font-bold">What is a 5AM Coder?</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-muted-foreground">
                 Let's face it—there's no shortage of knowledge or resources to learn coding in today's world. 
-                But despite endless tutorials and courses, many struggle with consistency and real progress.
+                You've seen the endless tutorials, free courses, and YouTube videos.
+              </p>
+              <div className="space-y-4">
+                <p className="text-xl font-semibold">But, let's be honest with ourselves for a moment.</p>
+                <p className="text-xl font-bold text-primary">Did you actually learn anything? Did you stay consistent?</p>
+                <p className="text-xl font-bold">No?<br/>Why?</p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-lg text-muted-foreground">
+                  Because even though the internet is bursting with information, what it lacks is:
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-primary" />
+                    <span className="text-lg"><strong>Clarity.</strong> Where do I even start?</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-primary" />
+                    <span className="text-lg"><strong>Commitment.</strong> Am I really sticking to this?</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-primary" />
+                    <span className="text-lg"><strong>Support.</strong> Who's guiding me when I feel stuck?</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <p className="text-xl">
+                That's where <span className="text-primary font-bold">5AM Coder</span> steps in.
+              </p>
+              <p className="text-lg">
+                We're not just another platform or course.<br/>
+                We're a <strong>community</strong>, a <strong>support system</strong>, and a <strong>movement</strong> for budding coders and wannabe software engineers like you.
+              </p>
+              <div className="bg-primary/10 p-6 rounded-lg">
+                <p className="text-xl font-semibold">Oh, and did I mention?</p>
+                <p className="text-2xl font-bold text-primary">This initiative is FREE.</p>
+                <p className="text-lg">Absolutely no commercial intent. Just passion, purpose, and the drive to help you succeed.</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative h-[500px]">
+            <Lottie 
+              animationData={require('@/public/animations/Animation - 1738866576765 (1).json')}
+              className="w-full h-full"
+            />
+          </div>
+        </section>
+
+        {/* New: Why Coding Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-bold">Why Coding? Why Now?</h2>
+          <div className="space-y-6">
+            <div className="bg-secondary/10 p-8 rounded-lg">
+              <p className="text-2xl font-semibold mb-4">"Is coding even worth it in the age of AI?"</p>
+              <p className="text-xl font-bold text-primary mb-4">Yes. A thousand times YES.</p>
+              <p className="text-lg">
+                Here's the thing. AI is impressive. No doubt. But do you know what powers AI?<br/>
+                <span className="font-bold">Coders. Developers. People like you.</span>
+              </p>
+            </div>
+            <Card className="p-6">
+              <p className="text-lg">
+                Take the story of DeepSeek vs OpenAI. A small team of passionate coders and researchers 
+                took on a corporate giant—and won. They didn't just follow trends; they built the 
+                foundation from scratch with hardcore skills.
               </p>
             </Card>
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300">
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                <Sparkles className="text-primary" />
-                The Solution
-              </h3>
+            <p className="text-xl">
+              The future isn't just about <em>using</em> AI. It's about creating it. 
+              And coding is your gateway to building, not just consuming.
+            </p>
+          </div>
+        </section>
+
+        {/* Updated: Meet Your Mentor Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-bold">Meet Your Mentor – Sasi Varna Kumar</h2>
+          <Card className="p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6">
+                <p className="text-lg">
+                  5AM Coder is led by <strong>Sasi Varna Kumar</strong>, a seasoned tech leader 
+                  with over <strong>15 years of experience</strong> in software development and IT consulting.
+                </p>
+                <p className="text-lg">
+                  When you join 5AM Coder, you're not just learning code—you're learning from someone 
+                  who's been where you are and knows exactly how to help you succeed.
+                </p>
+                <div className="space-y-3">
+                  <p className="font-semibold">Current Roles:</p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      CEO & Founder of Tealorca Software Solutions Pvt. Ltd.
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      Director of Deecodes
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      Co-founder of J2Store
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="relative h-[400px]">
+                <Lottie 
+                  animationData={require('@/public/animations/mentor.json')}
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Updated: Why 5AM Section */}
+        <section className="space-y-8">
+          <div className="flex items-center gap-2">
+            <Sunrise className="w-8 h-8 text-primary" />
+            <h2 className="text-3xl font-bold">Why 5AM?</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="p-6 space-y-4">
+              <Coffee className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">Quiet Mornings</h3>
               <p className="text-muted-foreground">
-                5AM Coder provides the mental space, committed time, and a supportive community of like-minded 
-                coders, along with expert guidance to help you master coding consistently.
+                Mornings are quiet. Distraction-free. And there's a special kind of magic 
+                in starting your day early with purpose.
+              </p>
+            </Card>
+            <Card className="p-6 space-y-4">
+              <Brain className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">Mental Clarity</h3>
+              <p className="text-muted-foreground">
+                At 5AM, it's just you, your thoughts, and your commitment. 
+                It's where clarity meets action.
+              </p>
+            </Card>
+            <Card className="p-6 space-y-4">
+              <Target className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">Lifestyle of Growth</h3>
+              <p className="text-muted-foreground">
+                This isn't just about coding. It's about building a lifestyle of 
+                discipline, focus, and growth.
               </p>
             </Card>
           </div>
         </section>
 
-        {/* Features Grid */}
+        {/* Updated: Final CTA Section */}
+        <section className="text-center space-y-8">
+          <h2 className="text-4xl font-bold">Ready to Start?</h2>
+          <div className="space-y-4">
+            <p className="text-xl">
+              We're opening up enrollment for our next batch!<br/>
+              Don't wait. Don't overthink.
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg"
+            >
+              Join the Movement Now <ArrowRight className="ml-2" />
+            </Button>
+            <div className="mt-8">
+              <p className="text-lg text-muted-foreground">
+                Coding isn't just a skill. It's a journey—and you don't have to do it alone.<br/>
+                Let's rise together. At 5AM.
+              </p>
+            </div>
+          </div>
+          <Lottie 
+            animationData={require('@/public/animations/celebration.json')}
+            className="w-32 h-32 mx-auto"
+          />
+        </section>
+
+        {/* 3. Course Highlights - Horizontal Cards */}
         <section className="space-y-12">
-          <h2 className="text-4xl font-bold text-center mb-16">What You'll Get</h2>
-          <div className="grid md:grid-cols-3 gap-8 stagger-animation">
+          <h2 className="text-3xl font-bold text-center">Course Highlights</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Users className="w-8 h-8 text-primary" />,
-                title: "Thriving Community",
-                description: "Connect with passionate coders who inspire and support your journey."
+                title: "Intro to Programming",
+                icon: <Terminal className="w-8 h-8" />,
+                description: "Start your journey with the basics"
               },
               {
-                icon: <Code2 className="w-8 h-8 text-primary" />,
-                title: "21 Days of Guided Learning",
-                description: "Work alongside experts, solving real problems and writing production-grade code."
+                title: "Scratch Programming",
+                icon: <Code2 className="w-8 h-8" />,
+                description: "Learn visual programming concepts"
               },
               {
-                icon: <Award className="w-8 h-8 text-primary" />,
-                title: "Certificate of Achievement",
-                description: "Complete the 21-Day Code Challenge and earn recognition for your growth."
+                title: "Developer Mindset",
+                icon: <Brain className="w-8 h-8" />,
+                description: "Think like a professional developer"
               }
-            ].map((feature, index) => (
-              <Card 
-                key={index}
-                className="p-8 bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300"
+            ].map((module, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -5 }}
+                className="relative group"
               >
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </Card>
+                <Card className="p-6 space-y-4 hover:shadow-lg transition-all">
+                  <div className="text-primary">{module.icon}</div>
+                  <h3 className="text-xl font-semibold">{module.title}</h3>
+                  <p className="text-muted-foreground">{module.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Why Coding Section */}
+        {/* 4. Why Choose Us - Grid Layout */}
         <section className="space-y-12">
-          <h2 className="text-4xl font-bold text-center mb-16 animate-fade-up">Why Coding? Why Now?</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300 animate-fade-up">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <Bot className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-semibold">"Is coding worth it in the age of AI?"</h3>
-                </div>
-                <p className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-400">
-                  Yes. A thousand times YES.
-                </p>
-                <p className="text-muted-foreground">
-                  Here's the thing. AI is impressive. No doubt. But do you know what powers AI?
-                </p>
-                <div className="stagger-animation space-y-2">
-                  <p className="text-lg font-semibold">Coders.</p>
-                  <p className="text-lg font-semibold">Developers.</p>
-                  <p className="text-lg font-semibold">People like you.</p>
-                </div>
-              </div>
+          <h2 className="text-3xl font-bold text-center">Why Choose Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="p-8 space-y-4">
+              <Users className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">A Thriving Community of Coders</h3>
+              <p className="text-muted-foreground">
+                Surround yourself with like-minded individuals who inspire, support, and challenge you to grow.
+              </p>
             </Card>
-
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300 animate-fade-up">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <Code className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-semibold">The Future is Building</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  Take the story of DeepSeek vs OpenAI. A small team of passionate coders and researchers 
-                  took on a corporate giant — and know what, they<span className="text-lg font-semibold"> WON</span>.
-                </p>
-                <p className="text-muted-foreground">
-                  They didn't just follow trends; they built the foundation from scratch with hardcore skills.
-                </p>
-                <div className="stagger-animation pt-4">
-                  <p className="text-lg font-semibold text-primary">
-                    The future isn't just about using AI.
-                  </p>
-                  <p className="text-lg font-semibold">
-                    It's about creating it.
-                  </p>
-                  <p className="text-lg">
-                    And coding is your gateway to building, not just consuming.
-                  </p>
-                </div>
-              </div>
+            <Card className="p-8 space-y-4">
+              <Code2 className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">21 Days of Guided Learning</h3>
+              <p className="text-muted-foreground">
+                You won't be doing this alone. You'll work alongside a real expert, solving problems, 
+                writing code, and breaking through barriers.
+              </p>
             </Card>
+            <Card className="p-8 space-y-4">
+              <Target className="w-8 h-8 text-primary" />
+              <h3 className="text-xl font-semibold">Certificate of Achievement</h3>
+              <p className="text-muted-foreground">
+                Complete the 5AM 21-Day Code Challenge, and walk away with a sense of pride, 
+                a community, and a certificate to prove it.
+              </p>
+            </Card>
+          </div>
+          <div className="text-center space-y-4">
+            <p className="text-2xl font-bold">500+ Students</p>
+            <p className="text-xl">Rated 4.9/5 by beginners</p>
           </div>
         </section>
 
-        {/* Mentor Section */}
+        {/* 5. Testimonials - Carousel */}
         <section className="space-y-12">
-          <Card className="p-12 bg-card/50 backdrop-blur-sm border border-border animate-fade-up">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces" 
-                alt="Sasi Varna Kumar" 
-                className="w-48 h-48 rounded-full object-cover border-4 border-primary/50"
-              />
-              <div className="space-y-6 text-center lg:text-left">
-                <h2 className="text-4xl font-bold">Meet Your Mentor – Sasi Varna Kumar</h2>
-                <p className="text-lg text-muted-foreground">
-                  A seasoned tech leader with over 15 years of experience, Sasi brings his wealth of knowledge 
-                  as CEO & Founder of Tealorca Software Solutions, Director of Deecodes, and Co-founder of J2Store.
-                </p>
-                <Button variant="outline" className="group">
-                  <PlayCircle className="w-5 h-5 mr-2 group-hover:text-primary" />
-                  Watch Introduction Video
-                </Button>
-              </div>
-            </div>
-          </Card>
+          <h2 className="text-3xl font-bold text-center">Success Stories</h2>
+          <Carousel className="w-full max-w-4xl mx-auto">
+            <CarouselContent>
+              {/* Add testimonial cards here */}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </section>
 
-        {/* Why 5AM Section */}
+        {/* 6. Interactive Demo - Tabs */}
         <section className="space-y-12">
-          <Card className="p-12 bg-card/50 backdrop-blur-sm border border-border animate-fade-up">
-            <div className="space-y-8">
-              <div className="flex items-center gap-4">
-                <Sunrise className="w-12 h-12 text-primary" />
-                <h2 className="text-4xl font-bold">Why 5AM?</h2>
-              </div>
-              <div className="space-y-6 text-lg text-muted-foreground">
-                <p>
-                  Mornings are quiet. Distraction-free. And there's a special kind of magic in starting your day early with purpose.
-                </p>
-                <p>
-                  At 5AM, it's just you, your thoughts, and your commitment. It's where clarity meets action.
-                </p>
-                <p>
-                  This isn't just about coding. It's about building a lifestyle of discipline, focus, and growth.
-                </p>
-              </div>
-            </div>
-          </Card>
+          <h2 className="text-3xl font-bold text-center">Try it Yourself</h2>
+          <Tabs defaultValue="scratch" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="scratch">Scratch Demo</TabsTrigger>
+              <TabsTrigger value="python">Python Basics</TabsTrigger>
+            </TabsList>
+            <TabsContent value="scratch">
+              {/* Embed Scratch demo */}
+            </TabsContent>
+            <TabsContent value="python">
+              {/* Embed Python editor */}
+            </TabsContent>
+          </Tabs>
         </section>
 
-        {/* CTA Section */}
-        <section className="text-center space-y-8 animate-fade-up">
-          <h2 className="text-5xl font-bold">Ready to Rise at 5AM?</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Join our next batch and become part of a movement that's transforming lives through code.
-            This initiative is completely FREE - driven by passion, not profit.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
-            >
-              Join Now
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="border-border hover:border-primary"
-            >
-              Learn More
-            </Button>
+        {/* 7. Pricing Plans - Three Column */}
+        <section className="space-y-12">
+          <h2 className="text-3xl font-bold text-center">Join the Movement</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Add pricing cards here */}
           </div>
+        </section>
+
+        {/* 8. FAQ - Accordion */}
+        <section className="space-y-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Do I need prior experience?</AccordionTrigger>
+              <AccordionContent>
+                No prior coding experience needed! We start from the absolute basics.
+              </AccordionContent>
+            </AccordionItem>
+            {/* Add more FAQ items */}
+          </Accordion>
         </section>
       </div>
     </div>

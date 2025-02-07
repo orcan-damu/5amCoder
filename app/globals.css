@@ -64,6 +64,10 @@
   100% { transform: translateY(0px); }
 }
 
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
 @keyframes glow {
   0% { box-shadow: 0 0 5px rgba(var(--primary), 0.5); }
   50% { box-shadow: 0 0 20px rgba(var(--primary), 0.8); }
@@ -84,4 +88,13 @@
 
 .card-hover {
   @apply transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/20;
+}
+
+/* White space preservation for line breaks in hero text */
+.whitespace-preserve {
+  white-space: pre-line;
+}
+
+.slide-in {
+  @apply animate-in slide-in-from-bottom duration-500;
 }
